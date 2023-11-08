@@ -1,7 +1,6 @@
 # flask-task
 demo project for simple REST-API by python
 
-
 ## Step 0. Init virtuel env
     python3 -m venv .venv
 
@@ -23,7 +22,15 @@ demo project for simple REST-API by python
 ## to install new packages
     pip install <package-name>
 
-## Ручной запуск проекта из окружения
-    export FLASK_APP=main.py
-    export FLASK_ENV=development
+## Запуск проекта
+
+# by python
+    python main.py
+    py .\main.py
+
+# by flask (venv)
+    export FLASK_APP=main.py FLASK_ENV=development FLASK_DEBUG=1
     flask run --port=2001
+
+# by process manager (not venv)
+    sudo pm2 start ".venv/bin/python3 main.py" --name FLASK
