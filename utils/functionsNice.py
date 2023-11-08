@@ -70,3 +70,11 @@ def reverse(data):
         return matrInv(matrix)
     else:
         return 'Ошибка: допустимы квадратные матрицы порядка 1,2,3'
+    
+
+def caesar(s, offset):
+    alpha = ' абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    res = []
+    for i in s.lower():
+        res.append(alpha[(alpha.find(i)+offset+len(alpha))%len(alpha)]) 
+    return ''.join(res)

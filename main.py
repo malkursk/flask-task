@@ -39,16 +39,20 @@ def getWorks():
 
         
 def funcController(inJson):
+    data = inJson['data'] 
     match inJson['method']:
         case "matrix-reverse":
-            return func.reverse(inJson['data']['matrix'])
+            return func.reverse(data['matrix'])
         case "matrix-Julia":
-            return funcNice.reverse(inJson['data']['matrix'])
+            return funcNice.reverse(data['matrix'])
+        case "ceasar":
+            return funcNice.caesar(data['text'],data['offset'])
     
 
 @app.route("/calc",methods=['POST'])
 def index():    
     try:
+        print(request.get_json())
         res = funcController(request.get_json())
         res =  {'data': {'result': res}}
         #return {"data": res, }, 200
