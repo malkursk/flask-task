@@ -4,9 +4,12 @@ demo project for simple REST-API by python
 ## Step 0. Init virtuel env
     python3 -m venv .venv
 
+
 ## Step 1. To activate venv windows/linux
     .\.venv\Scripts\activate
     source .venv/bin/activate
+
+use PowerShell by admin and  execute: Set-ExecutionPolicy RemoteSigned (comfirm for ALL)
 
 ## Step 2. To save packages
     pip freeze >package.txt
