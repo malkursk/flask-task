@@ -1,6 +1,8 @@
 # flask-task
 demo project for simple REST-API by python
 
+## req python 3.10! and higher 
+
 ## Step 0. Init virtuel env
     python3 -m venv .venv
 
