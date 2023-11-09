@@ -64,7 +64,7 @@ def matrInv(M):
                 Dop[i][j] = round(Dop[i][j]*d*1e3)/1e3
         return Dop
 
-def reverse(data):
+def matrixReverse(data):
     matrix = makeMatrix(data)
     if (checkMatrix(matrix)):
         return matrInv(matrix)
@@ -78,3 +78,19 @@ def caesar(s, offset):
     for i in s.lower():
         res.append(alpha[(alpha.find(i)+offset+len(alpha))%len(alpha)]) 
     return ''.join(res)
+
+def getSum(string):
+    array = string.split(' ')
+    sum = 0
+    for i in range(len(array)):
+            if (isNum(array[i])):
+                sum += float(array[i])
+            else: return False    
+    return sum
+
+def isNum(string):
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False

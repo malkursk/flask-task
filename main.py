@@ -27,7 +27,6 @@ class WorkModel(db.Model):
             'id': self.id,
             'params': self.params,
             'result': self.result,
-            'createdat': self.createdat,
         }
 
 @app.route("/list",methods=['GET'])
@@ -36,17 +35,25 @@ def getWorks():
     works = WorkModel.query.order_by(WorkModel.id.desc()).limit(25)
     return jsonify(works=[i.serialize for i in works])
 
-
         
 def funcController(inJson):
     data = inJson['data'] 
+    value = data['value'] 
     match inJson['method']:
-        case "matrix-reverse":
-            return func.reverse(data['matrix'])
+        # Nice functions section
         case "matrix-Julia":
-            return funcNice.reverse(data['matrix'])
+            return funcNice.matrixReverse(value)
         case "ceasar":
-            return funcNice.caesar(data['text'],data['offset'])
+            return funcNice.caesar(value,data['offset'])
+        case "sum":
+            return funcNice.getSum(value)        
+        
+        # Usual functions section
+        case "matrix-reverse":
+            return func.matrixReverse(value)
+        case "arraySum":
+            return func.arraySum(value)
+    return "method is not supported"
     
 
 @app.route("/calc",methods=['POST'])
