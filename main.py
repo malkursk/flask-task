@@ -25,7 +25,6 @@ class WorkModel(db.Model):
             'result': self.result,
         }
     
-
 def funcController(inJson):
     data = inJson['data'] 
     value = inJson['data']['value'] 
@@ -69,11 +68,11 @@ def index():
     except:
         return {"data": 'wrong json-params', }, 400
     
-@app.route('/task/<id>', methods=['GET'])
+@app.route('/work/<id>', methods=['GET'])
 def viewTask(id):
     return WorkModel.query.get(id).serialize
 
-@app.route('/task/<id>', methods=['DELETE'])
+@app.route('/work/<id>', methods=['DELETE'])
 def deleteTask(id):
     s = "not found"
     code = 404
