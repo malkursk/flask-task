@@ -11,6 +11,18 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
 db = SQLAlchemy(app)
 
+class NameModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)    
+    nam = db.Column(db.String, nullable=False, unique=True)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'nam': self.nam
+        }
+    
+
 class WorkModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)    
     params = db.Column(JSON, nullable=False)
@@ -47,6 +59,18 @@ def funcController(inJson):
             return func.matrixTransponse(value)         
     return "method is not supported"
     
+@app.route("/name/<v>", methods=['GET'])
+def demo(v):
+    work = NameModel(nam = v)
+    db.session.add(work)
+    db.session.commit()
+    return "hello"
+
+@app.route("/names", methods=['GET'])
+def namesList():
+    names = NameModel.query.all()
+    return jsonify(names=[i.serialize for i in names])
+
 @app.route("/")
 def hello():
     return "hello"
@@ -83,8 +107,7 @@ def deleteTask(id):
         s = "successfully deleted"       
     return {"data": f"id={id} {s}"}, code
     
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True, port=2001)
 
+with app.app_context():
+    db.create_all()    
+    app.run(debug=True, port=2001)
